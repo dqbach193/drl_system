@@ -1,1 +1,1 @@
-# drl_system
+# Hệ thống điểm rèn luyện
