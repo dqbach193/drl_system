@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const diemRenLuyen = require('./routes/diemRenLuyen')
 
 //middleware
 app.use((req, res, next)=>{
@@ -8,11 +9,11 @@ app.use((req, res, next)=>{
     next();
 })
 
-app.get('/', (req, res) =>{
-    res.json({msg: 'Welcome to behavioral scoring system'});
-})
+app.use('/drl', diemRenLuyen);
 
 //listen for request
 app.listen(process.env.PORT, ()=>{
     console.log("listening on port " + process.env.PORT);
 })
+
+
