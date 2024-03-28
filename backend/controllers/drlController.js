@@ -36,8 +36,41 @@ const createDRL = async (req, res) =>{
     }
 }
 
+//Delete DRL 1 sinh vien
+const deleteDRL = async (req, res) =>{
+    const {id} = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: "Does not exists!"});
+    }
+
+    const drl = await DiemRenLuyen.findByIdAndDelete({_id: id});
+
+    if(!drl){
+        return res.status(404).json({error: "Does not exists!"});
+    }
+    return res.status(200).json(drl);
+}
+
+const updateDRL = async (req, res) =>{
+    const {id} = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: "Does not exists!"});
+    }
+
+    const drl = await DiemRenLuyen.findOneAndUpdate({_id: id},{
+        ...req.body
+    });
+
+    if(!drl){
+        return res.status(404).json({error: "Does not exists!"});
+    }
+    return res.status(200).json(drl);
+}
+
 module.exports = {
     getDRL,
     getDRLbySV,
-    createDRL
+    createDRL,
+    deleteDRL,
+    updateDRL
 }

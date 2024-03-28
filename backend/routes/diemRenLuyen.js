@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {
-    createDRL,
     getDRL,
-    getDRLbySV
+    getDRLbySV,
+    createDRL,
+    deleteDRL,
+    updateDRL
 } = require('../controllers/drlController')
 
 
@@ -16,13 +18,9 @@ router.get('/:id', getDRLbySV)
 router.post('/', createDRL);
 
 //DELETE DRL 1 sinh vien
-router.delete('/:id',(req, res) =>{
-    res.json({msg: 'DELETE Diem ren luyen 1 sinh vien'});
-})
+router.delete('/:id', deleteDRL)
 
 //UPDATE DRL 1 sinh vien
-router.patch('/:id',(req, res) =>{
-    res.json({msg: 'UPDATE Diem ren luyen 1 sinh vien'});
-})
+router.patch('/:id', updateDRL)
 
 module.exports = router;
