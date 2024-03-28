@@ -1,27 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const DiemRenLuyen = require('../models/drlModel');
+const {
+    createDRL,
+    getDRL,
+    getDRLbySV
+} = require('../controllers/drlController')
 
-router.get('/',(req, res) =>{
-    res.json({msg: 'He thong diem ren luyen'});
-})
+
+router.get('/', getDRL)
 
 //XEM Diem ren luyen 1 sinh vien
-router.get('/:id',(req, res) =>{
-    res.json({msg: 'XEM Diem ren luyen 1 sinh vien'});
-})
+router.get('/:id', getDRLbySV)
 
 //POST Diem ren luyen 1 sinh vien
-router.post('/', async (req, res) =>{
-    const {mssv, hoTen, drl} = req.body;
-
-    try{
-        const newDRL = await DiemRenLuyen.create({mssv, hoTen, drl});
-        res.status(200).json(newDRL);
-    }catch (error){
-        res.status(400).json({error: error.message});
-    }
-});
+router.post('/', createDRL);
 
 //DELETE DRL 1 sinh vien
 router.delete('/:id',(req, res) =>{
