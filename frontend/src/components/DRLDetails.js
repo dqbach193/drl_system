@@ -1,7 +1,7 @@
 const DRLDetails = ({diemRenLuyen}) => {
     return ( 
         <tr>
-            <th>{diemRenLuyen.mssv}</th>
+            <td>{diemRenLuyen.mssv}</td>
             <td>{diemRenLuyen.hoTen}</td>
             <td>{diemRenLuyen.drl}</td>
         </tr>

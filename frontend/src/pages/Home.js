@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 //components
 import DRLDetails from "../components/DRLDetails";
+import DRLForm from "../components/DRLForm";
 
 const Home = () => {
     const [allDRL, setAllDRL] = useState(null)
@@ -23,18 +24,19 @@ const Home = () => {
     return ( 
         <div className="home">
             <div className="drl">
-                <table>
+                <table id="drl-table">
                     <tbody>
                         <tr>
                             <th>MSSV</th>
-                            <td>Họ Tên</td>
-                            <td>ĐRL</td>
+                            <th>Họ Tên</th>
+                            <th>ĐRL</th>
                         </tr>
                         {allDRL && allDRL.map(diemRenLuyen =>(
                             <DRLDetails key={diemRenLuyen._id} diemRenLuyen={diemRenLuyen}/>
                         ))}
                     </tbody>
                 </table>
+                <DRLForm />
             </div>
         </div>
      );
