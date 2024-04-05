@@ -3,6 +3,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 //pages and component
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
+import DRLForm from './components/DRLForm';
+import DRLDetailed from './pages/DRLDetailed';
 
 function App() {
   return (
@@ -14,6 +16,14 @@ function App() {
               <Route
                 path='/'
                 element={<Home />}
+              />
+              <Route
+                path='/create'
+                element={<DRLForm />}
+              />
+              <Route
+                path='/drl/:id'
+                element={<DRLDetailed />}
               />
           </Routes>
         </div>

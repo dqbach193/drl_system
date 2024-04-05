@@ -32,6 +32,18 @@ header a {
   margin: 0 auto;
 }
 
+.addDRL {
+  position: fixed;
+  top: 15%;
+  right: 2%;
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 /* Table styling */
 
@@ -58,6 +70,24 @@ header a {
   color: white;
 }
 
+/*Detailed table*/
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:hover {background-color: #ddd;}
+
+.left{
+  text-align: right;
+}
 
 
 /* FORM */
@@ -65,8 +95,6 @@ header a {
 .create{
   position: absolute;
   text-align: left;
-  right: 20px;
-  top: 120px;
 }
 
 label, input {

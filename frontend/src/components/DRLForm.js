@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useDRLContext } from "../hooks/useDRLContext";
 
 const DRLForm = () => {
+    const {dispatch} = useDRLContext();
     const[mssv, setMssv] = useState('')
     const[hoTen, setHoTen] = useState('')
     const[drl, setDrl] = useState('')
@@ -30,6 +32,7 @@ const DRLForm = () => {
             setDrl('')
             setError(null)
             console.log('Them diem ren luyen', json)
+            dispatch({type:'CREATE_DRL', payload: json})
         }
     }
 

@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDRLContext } from "../hooks/useDRLContext";
+import { Link } from "react-router-dom";
 
 //components
 import DRLDetails from "../components/DRLDetails";
-import DRLForm from "../components/DRLForm";
 
 const Home = () => {
-    const [allDRL, setAllDRL] = useState(null)
+
+    const {allDRL, dispatch} = useDRLContext();
 
     useEffect(() => {
         const fetchDRL = async () => {
@@ -13,8 +15,7 @@ const Home = () => {
           const json = await response.json()
     
           if (response.ok) {
-            console.log(json)
-            setAllDRL(json)
+            dispatch({type: 'SET_ALL_DRL', payload: json})
           }
         }
     
@@ -35,8 +36,9 @@ const Home = () => {
                             <DRLDetails key={diemRenLuyen._id} diemRenLuyen={diemRenLuyen}/>
                         ))}
                     </tbody>
+
+                    <Link to='/create'><button className="addDRL">Thêm điểm rèn luyện</button></Link>
                 </table>
-                <DRLForm />
             </div>
         </div>
      );
