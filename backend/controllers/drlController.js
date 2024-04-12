@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 
 //Xem tat ca DRL
 const getDRL = async (req, res) => {
-    const drl = await DiemRenLuyen.find({}).sort({createdAt: -1});
+    const user_id = req.user._id
+    const drl = await DiemRenLuyen.find({user_id}).sort({createdAt: -1});
 
     return res.status(200).json(drl);
 }
@@ -29,7 +30,8 @@ const createDRL = async (req, res) =>{
     const {mssv, hoTen, drl} = req.body;
 
     try{
-        const newDRL = await DiemRenLuyen.create({mssv, hoTen, drl});
+        const user_id = req.user._id
+        const newDRL = await DiemRenLuyen.create({mssv, hoTen, drl, user_id});
         res.status(200).json(newDRL);
     }catch (error){
         res.status(400).json({error: error.message});
