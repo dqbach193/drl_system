@@ -7,7 +7,9 @@ const {
     deleteDRL,
     updateDRL
 } = require('../controllers/drlController')
-
+const requireAuth = require('../middleware/requireAuth')
+//require auth for all drl routes
+router.use(requireAuth)
 
 router.get('/', getDRL)
 
