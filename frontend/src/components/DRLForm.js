@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useDRLContext } from "../hooks/useDRLContext";
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const DRLForm = () => {
     const {dispatch} = useDRLContext();
+    const {user} = useAuthContext();
     const[mssv, setMssv] = useState('')
     const[hoTen, setHoTen] = useState('')
     const[drl, setDrl] = useState('')
@@ -11,13 +13,18 @@ const DRLForm = () => {
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
+        if(!user){
+            setError('You must be logged in')
+            return
+        }
         const diemRenLuyen = {mssv, hoTen, drl}
 
         const response = await fetch('/drl', {
             method: 'POST',
             body: JSON.stringify(diemRenLuyen),
             headers:{
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
 

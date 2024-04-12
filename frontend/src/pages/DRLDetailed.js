@@ -2,12 +2,14 @@ import {useParams, useNavigate} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {useDRLContext} from '../hooks/useDRLContext';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const DRLDetailed = () => {
     const { id } = useParams();
     const [drl, setDrl] = useState(null);
     const navigate = useNavigate();
     const {dispatch} = useDRLContext();
+    const {user} = useAuthContext();
 
     useEffect(() => {
         const fetchDRL = async () => {
@@ -37,8 +39,14 @@ const DRLDetailed = () => {
         }
 
         const handleDelete = async () =>{
+            if(!user){
+                return
+            }
             const response = await fetch('/drl/' + drl._id, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers:{
+                    'Authorization': `Bearer ${user.token}`
+                }
             })
             const json = await response.json();
     

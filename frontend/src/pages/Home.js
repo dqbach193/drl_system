@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDRLContext } from "../hooks/useDRLContext";
 import { Link } from "react-router-dom";
+import {useAuthContext} from "../hooks/useAuthContext"
 
 //components
 import DRLDetails from "../components/DRLDetails";
@@ -8,10 +9,15 @@ import DRLDetails from "../components/DRLDetails";
 const Home = () => {
 
     const {allDRL, dispatch} = useDRLContext();
+    const {user} = useAuthContext();
 
     useEffect(() => {
         const fetchDRL = async () => {
-          const response = await fetch('/drl')
+          const response = await fetch('/drl',{
+            headers:{
+                'Authorization': `Bearer ${user.token}`
+              }
+          })
           const json = await response.json()
     
           if (response.ok) {
@@ -19,8 +25,10 @@ const Home = () => {
           }
         }
     
-        fetchDRL()
-      }, [])
+        if(user){
+            fetchWorkouts()
+          }
+      }, [dispatch, user])
     
     return ( 
         <div className="home">
