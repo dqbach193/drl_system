@@ -26,7 +26,7 @@ const Home = () => {
         }
     
         if(user){
-            fetchWorkouts()
+            fetchDRL()
           }
       }, [dispatch, user])
     

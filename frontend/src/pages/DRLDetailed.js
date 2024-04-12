@@ -13,7 +13,11 @@ const DRLDetailed = () => {
 
     useEffect(() => {
         const fetchDRL = async () => {
-          const response = await fetch('/drl/' + id)
+          const response = await fetch('/drl/' + id,{
+            headers:{
+                'Authorization': `Bearer ${user.token}`
+            }
+          })
           const json = await response.json()
     
           if (response.ok) {
