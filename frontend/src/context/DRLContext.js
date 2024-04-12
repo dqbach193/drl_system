@@ -16,6 +16,10 @@ export const drlReducer = (state, action) => {
             return {
                 allDRL: [action.payload, ...state.allDRL]
             }
+        case 'DELETE_DRL':
+            return{
+                allDRL: state.allDRL.filter((d) => d._id !== action.payload._id)
+            }
         default:
             return state
     }

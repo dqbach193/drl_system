@@ -1,9 +1,13 @@
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import {useDRLContext} from '../hooks/useDRLContext';
 
 const DRLDetailed = () => {
     const { id } = useParams();
-    const [drl, setDrl] = useState(null)
+    const [drl, setDrl] = useState(null);
+    const navigate = useNavigate();
+    const {dispatch} = useDRLContext();
 
     useEffect(() => {
         const fetchDRL = async () => {
@@ -20,9 +24,35 @@ const DRLDetailed = () => {
 
 
     if(drl){
+        
+        let xepLoai = '';
+        if(drl.drl >= 80){
+            xepLoai = 'Giỏi';
+        }else if(drl.drl >= 60){
+            xepLoai = 'Khá';
+        }else if (drl.drl >= 45){
+            xepLoai = 'Trung Bình';
+        }else{
+            xepLoai = 'Kém';
+        }
+
+        const handleDelete = async () =>{
+            const response = await fetch('/drl/' + drl._id, {
+                method: 'DELETE'
+            })
+            const json = await response.json();
+    
+            if(response.ok) {
+                dispatch({type: 'DELETE_DRL', payload: json});
+                navigate('/');
+            }
+        }
+
         return ( 
             <div>
                 <h2>Điểm rèn luyện của {drl.hoTen}</h2>
+                <Link to='/create'><button>Sửa</button></Link>
+                <button onClick={handleDelete}>Delete</button>
                 <table>
                     <tr>
                         <th>Nội dung đánh giá</th>
@@ -218,7 +248,7 @@ const DRLDetailed = () => {
                     </tr>
                     <tr>
                         <td className='left'><b>Xếp loại</b></td>
-                        <td></td>
+                        <td>{ xepLoai } </td>
                     </tr>
                 </table>
             </div>
