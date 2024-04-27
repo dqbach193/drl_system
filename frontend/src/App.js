@@ -9,6 +9,8 @@ import DRLForm from './components/DRLForm';
 import DRLDetailed from './pages/DRLDetailed';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Admin from './pages/Admin';
+import Feedback from './pages/Feedback'
 
 function App() {
   const {user} = useAuthContext();
@@ -22,6 +24,14 @@ function App() {
               <Route
                 path='/'
                 element={user ? <Home /> : <Navigate to="/login"/>}
+              />
+              <Route
+                path='/feedback/:id'
+                element={<Feedback /> }
+              />
+              <Route
+                path='/admin'
+                element={<Admin />}
               />
               <Route
                 path='/login'

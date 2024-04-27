@@ -1,16 +1,34 @@
 const DiemRenLuyen = require('../models/drlModel');
 const mongoose = require('mongoose')
+const User = require('../models/userModel')
 
 
 //Xem tat ca DRL
+// const getDRL = async (req, res) => {
+//     const user_id = req.user._id
+//     const drl = await DiemRenLuyen.find({user_id}).sort({createdAt: -1});
+
+//     return res.status(200).json(drl);
+// }
 const getDRL = async (req, res) => {
-    const user_id = req.user._id
-    const drl = await DiemRenLuyen.find({user_id}).sort({createdAt: -1});
+    const user_id = req.user._id;
+    const user = await User.find({_id:user_id});
+    const email = user[0].email;
+    const userMssv = Number(email.split('@')[0]);
+    const drl = await DiemRenLuyen.find({mssv:userMssv}).sort({createdAt: -1})
+    return res.status(200).json(drl);
+}
+
+const getDRLbyClass = async (req, res) =>{
+    const user_id = req.user._id;
+    const user = await User.find({_id:user_id});
+    const userClass = user[0].userClass;
+    const drl = await DiemRenLuyen.find({userClass:userClass}).sort({createdAt: -1})
 
     return res.status(200).json(drl);
 }
 
-//Xem DRL 1 sinh vien
+//Xem DRL cu the
 const getDRLbySV = async (req, res) =>{
     const {id} = req.params;
     if(!mongoose.Types.ObjectId.isValid(id)){
@@ -27,11 +45,11 @@ const getDRLbySV = async (req, res) =>{
 
 //Post DRL 1 sinh vien
 const createDRL = async (req, res) =>{
-    const {mssv, hoTen, drl} = req.body;
+    const {mssv, hoTen, drl, userClass, semester} = req.body;
 
     try{
         const user_id = req.user._id
-        const newDRL = await DiemRenLuyen.create({mssv, hoTen, drl, user_id});
+        const newDRL = await DiemRenLuyen.create({mssv, hoTen, drl, user_id, userClass, semester});
         res.status(200).json(newDRL);
     }catch (error){
         res.status(400).json({error: error.message});
@@ -74,5 +92,6 @@ module.exports = {
     getDRLbySV,
     createDRL,
     deleteDRL,
-    updateDRL
+    updateDRL,
+    getDRLbyClass
 }
