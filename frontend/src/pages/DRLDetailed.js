@@ -62,7 +62,7 @@ const DRLDetailed = () => {
 
         return ( 
             <div>
-                <h2>Điểm rèn luyện của {drl.hoTen} : {drl.drl}</h2>
+                <h2>Điểm rèn luyện của {drl.hoTen} : {drl.drl} - Kỳ: {drl.semester}</h2>
                 {user.role === 'admin' && <Link to='/create'><button>Sửa</button></Link>}
                 {user.role === 'admin' &&<button onClick={handleDelete}>Delete</button>}
                 <table>

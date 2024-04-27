@@ -12,6 +12,8 @@ const Home = () => {
     const {allDRL, dispatch} = useDRLContext();
     const [users, setUsers] = useState(null);
     const {user} = useAuthContext();
+    const [selectedSemester, setSelectedSemester] = useState('');
+    const [filteredDRL, setFilteredDRL] = useState(null);
 
     useEffect(() => { if(user.role ==='user'){
         const fetchDRL = async () => {
@@ -31,19 +33,38 @@ const Home = () => {
             fetchDRL()
           }
       }}, [dispatch, user])
-    
-      useEffect(() => {
-        const fetchUsers = async () => {
-          const response = await fetch('/api/user/admin')
+
+    useEffect(() => { if(user.role ==='covan'){
+        const fetchDRL = async () => {
+          const response = await fetch('/drl/class',{
+            headers:{
+                'Authorization': `Bearer ${user.token}`
+              }
+          })
           const json = await response.json()
     
           if (response.ok) {
-            setUsers(json)
+            dispatch({type: 'SET_ALL_DRL', payload: json})
           }
         }
     
-        fetchUsers()
-      }, [])
+        if(user){
+            fetchDRL()
+          }
+      }}, [dispatch, user])
+    
+    useEffect(() => {
+    const fetchUsers = async () => {
+        const response = await fetch('/api/user/admin')
+        const json = await response.json()
+
+        if (response.ok) {
+        setUsers(json)
+        }
+    }
+
+    fetchUsers()
+    }, [])
     
     if(user.role==='admin'){
         
@@ -72,6 +93,24 @@ const Home = () => {
         return (
             <div>
                 <h1>Trang Cố vấn lớp {user.userClass}</h1>
+                
+                <select value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
+                    <option value="">Select Semester</option>
+                    <option value="2024-01">2024 Kỳ 01</option>
+                    <option value="2024-02">2024 Kỳ 02</option>
+                </select>
+                <tbody>
+                        <tr>
+                            <th>MSSV</th>
+                            <th>Họ Tên</th>
+                            <th>ĐRL</th>
+                            <th>Kỳ</th>
+                            <th>{user.role}</th>
+                        </tr>
+                        {allDRL && allDRL.map(diemRenLuyen =>(
+                            <DRLDetails key={diemRenLuyen._id} diemRenLuyen={diemRenLuyen} selectedSemester={selectedSemester}/>
+                        ))}
+                    </tbody>
             </div>
         )
     }
