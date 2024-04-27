@@ -93,7 +93,6 @@ const Home = () => {
         return (
             <div>
                 <h1>Trang Cố vấn lớp {user.userClass}</h1>
-                
                 <select value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
                     <option value="">Select Semester</option>
                     <option value="2024-01">2024 Kỳ 01</option>
@@ -116,6 +115,11 @@ const Home = () => {
     }
     return ( 
         <div className="home">
+            <select value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
+                    <option value="">Select Semester</option>
+                    <option value="2024-01">2024 Kỳ 01</option>
+                    <option value="2024-02">2024 Kỳ 02</option>
+                </select>
             <div className="drl">
                 <table id="drl-table">
                     <tbody>
@@ -126,7 +130,7 @@ const Home = () => {
                             <th>{user.role}</th>
                         </tr>
                         {allDRL && allDRL.map(diemRenLuyen =>(
-                            <DRLDetails key={diemRenLuyen._id} diemRenLuyen={diemRenLuyen}/>
+                            <DRLDetails key={diemRenLuyen._id} diemRenLuyen={diemRenLuyen} selectedSemester={selectedSemester}/>
                         ))}
                     </tbody>
                 </table>
