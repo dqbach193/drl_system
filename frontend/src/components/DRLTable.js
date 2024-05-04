@@ -255,5 +255,5 @@ const DRLTable = ({allDRL, selectedSemester}) => {
         </div>
     )
 }
- 
+
 export default DRLTable;

@@ -154,3 +154,40 @@ form.signup, form.login {
   background: #fff;
   border-radius: 4px;
 }
+
+.chart{
+  position: absolute;
+  right: 50px;
+  top: 100px;
+}
+
+.diemKem{
+  width: 10px;
+  height: 10px;
+  background-color: #fe1500;
+  display: inline-block;
+}
+.diemTB{
+  width: 10px;
+  height: 10px;
+  background-color: #FFBB28;
+  display: inline-block;
+}
+.diemKha{
+  width: 10px;
+  height: 10px;
+  background-color: #00C49F;
+  display: inline-block;
+}
+.diemGioi{
+  width: 10px;
+  height: 10px;
+  background-color: #FF8042;
+  display: inline-block;
+}
+.diemXS{
+  width: 10px;
+  height: 10px;
+  background-color: #0ceefa;
+  display: inline-block;
+}

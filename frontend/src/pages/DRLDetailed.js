@@ -32,14 +32,20 @@ const DRLDetailed = () => {
     if(drl){
         
         let xepLoai = '';
-        if(drl.drl >= 80){
-            xepLoai = 'Giỏi';
-        }else if(drl.drl >= 60){
-            xepLoai = 'Khá';
-        }else if (drl.drl >= 45){
-            xepLoai = 'Trung Bình';
-        }else{
-            xepLoai = 'Kém';
+        if(drl.drl<=59){
+            xepLoai='Kém';
+        }
+        if(drl.drl >= 60 && drl.drl < 70){
+            xepLoai='Trung bình';
+        }
+        if(drl.drl >= 70 && drl.drl < 80){
+            xepLoai='Khá';
+        }
+        if(drl.drl >= 80 && drl.drl <90){
+            xepLoai='Giỏi';
+        }
+        if(drl.drl >= 90){
+            xepLoai='Xuất sắc';
         }
 
         const handleDelete = async () =>{

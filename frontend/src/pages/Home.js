@@ -7,6 +7,7 @@ import {useAuthContext} from "../hooks/useAuthContext"
 import DRLDetails from "../components/DRLDetails";
 import DRLTable from "../components/DRLTable";
 import UsersDetails from "../components/UsersDetails"
+import Chart from "../components/Chart";
 
 const Home = () => {
 
@@ -92,7 +93,7 @@ const Home = () => {
     if(user.role === 'covan'){
         return (
             <div>
-                <h1>Trang Cố vấn lớp {user.userClass}</h1>
+                <h1>Trang Cố vấn lớp K64-CA-CLC{user.userClass}</h1>
                 <select value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
                     <option value="">Select Semester</option>
                     <option value="2024-01">2024 Kỳ 01</option>
@@ -109,7 +110,8 @@ const Home = () => {
                         {allDRL && allDRL.map(diemRenLuyen =>(
                             <DRLDetails key={diemRenLuyen._id} diemRenLuyen={diemRenLuyen} selectedSemester={selectedSemester}/>
                         ))}
-                    </tbody>
+                </tbody>
+                {allDRL && <Chart {...allDRL} selectedSemester={selectedSemester}/>}
             </div>
         )
     }
