@@ -22,7 +22,7 @@ const DRLTable = ({allDRL, selectedSemester}) => {
         }
         return ( 
         <div>
-            <h2>Điểm rèn luyện của {drl.hoTen} : {drl.drl} - Kỳ: {selectedSemester}</h2>
+            <h2>Điểm rèn luyện của {drl.hoTen} : {drl.drl} </h2>
             
             <table>
                 <tr>

@@ -152,9 +152,9 @@ const Home = () => {
                 <select value={selectedSemester} onChange={(e) => {
                     setSelectedSemester(e.target.value)
                     }}>
-                    <option value="">Select Semester</option>
-                    <option value="2024-01">2024 Kỳ 01</option>
-                    <option value="2024-02">2024 Kỳ 02</option>
+                    <option value="">Chọn kỳ học</option>
+                    <option value="2024-01">Kỳ 1 năm 2023-2024</option>
+                    <option value="2024-02">Kỳ 2 năm 2023-2024</option>
                 </select>
                     {allDRL && <DRLTable allDRL={allDRL} selectedSemester={selectedSemester}/>}
             </div>
