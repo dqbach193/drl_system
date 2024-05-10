@@ -102,16 +102,18 @@ const Home = () => {
                         {users && users.map(user => (
                         <UsersDetails user={user} key={user._id} />
                         ))}
-                        <select value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
-                            <option value="">Chọn kỳ học</option>
-                            <option value="2024-01">Kỳ 1 năm 2023-2024</option>
-                            <option value="2024-02">Kỳ 2 năm 2023-2024</option>
-                        </select>
-                        <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
-                            <option value="">Chọn khoa</option>
-                            <option value="1">K64</option>
-                            <option value="2">K65</option>
-                        </select>
+                        <div>
+                            <select value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
+                                <option value="">Chọn kỳ học</option>
+                                <option value="2024-01">Kỳ 1 năm 2023-2024</option>
+                                <option value="2024-02">Kỳ 2 năm 2023-2024</option>
+                            </select>
+                            <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+                                <option value="">Chọn khoa</option>
+                                <option value="1">K64</option>
+                                <option value="2">K65</option>
+                            </select>
+                        </div>
                         {user.role === 'admin' ? <Link to='/create'><button className="addDRL">Thêm điểm rèn luyện</button></Link> : <div></div> }
                         {allDRL && <Chart {...allDRL} selectedSemester={selectedSemester} selectedYear={selectedYear}/>}
                     </tbody>
@@ -135,8 +137,6 @@ const Home = () => {
                             <th>MSSV</th>
                             <th>Họ Tên</th>
                             <th>ĐRL</th>
-                            <th>Kỳ</th>
-                            <th>{user.role}</th>
                         </tr>
                         {allDRL && allDRL.map(diemRenLuyen =>(
                             <DRLDetails key={diemRenLuyen._id} diemRenLuyen={diemRenLuyen} selectedSemester={selectedSemester}/>
@@ -174,8 +174,6 @@ const Home = () => {
                             <th>MSSV</th>
                             <th>Họ Tên</th>
                             <th>ĐRL</th>
-                            <th>Kỳ</th>
-                            <th>{user.role}</th>
                         </tr>
                         {allDRL && allDRL.map(diemRenLuyen =>(
                             <DRLDetails key={diemRenLuyen._id} diemRenLuyen={diemRenLuyen} selectedSemester={selectedSemester}/>
