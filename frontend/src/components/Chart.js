@@ -1,16 +1,27 @@
 import{PieChart, Pie, Cell, Tooltip, ResponsiveContainer} from 'recharts'
 
-const Chart = (allDRL, {selectedSemester}) => {
+const Chart = (allDRL, {selectedSemester, selectedYear}) => {
     
     const semester = allDRL.selectedSemester;
+    const year = allDRL.selectedYear
     console.log(semester)
-    const filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester);
+    console.log(year)
+    let filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester);
+    if(year!== ''){
+        if(year == 1){
+            filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester && (drl.userClass == 1 || drl.userClass == 2));
+        }
+        if(year == 2){
+            filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester && (drl.userClass == 3 || drl.userClass == 4));
+        }
+    }
     console.log(filteredDRL)
     let diemKha = 0;
     let diemGioi = 0;
     let diemKem = 0;
     let diemXuatSac = 0;
     let diemTrungBinh = 0;
+    let counter = 0;
     filteredDRL.forEach(drl =>{
         if(drl.drl<=59){
             diemKem++;
@@ -27,6 +38,7 @@ const Chart = (allDRL, {selectedSemester}) => {
         if(drl.drl >= 90){
             diemXuatSac++;
         }
+        counter++
     })
 
     const data = [
@@ -45,15 +57,16 @@ const Chart = (allDRL, {selectedSemester}) => {
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
       
-        return (
-          <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-            {`${(percent * 100).toFixed(0)}%`}
-          </text>
+        return percent * 100 === 0 ? null : (
+            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+              {`${(percent * 100).toFixed(0)}%`}
+            </text>
         );
       };
     return ( 
     <div className="chart">
         <h2>Thống kê điểm</h2>
+        <div className=''></div> Tổng sinh viên : {counter}  <br />
         <div className='diemKem'></div> Số điểm kém : {diemKem}  <br />
         <div className='diemTB'></div> Số điểm trung bình : {diemTrungBinh} <br />
         <div className='diemKha'></div> Số điểm khá : {diemKha} <br />

@@ -15,6 +15,11 @@ const Home = () => {
     const [users, setUsers] = useState(null);
     const {user} = useAuthContext();
     const [selectedSemester, setSelectedSemester] = useState('');
+    const [selectedYear, setSelectedYear] = useState('');
+
+    const classes = ["K64-CA-CLC1",
+                    "K64-CA-CLC2",
+                    "K65-CA-CLC1"]
 
     useEffect(() => { if(user.role ==='user'){
         const fetchDRL = async () => {
@@ -65,7 +70,22 @@ const Home = () => {
     }
 
     fetchUsers()
-    }, [])
+
+    const fetchDRL = async () => {
+        const response = await fetch('/drl/all')
+        const json = await response.json()
+  
+        if (response.ok) {
+          dispatch({type: 'SET_ALL_DRL', payload: json})
+        }
+      }
+  
+      if(user){
+          fetchDRL()
+        }
+    }, [dispatch, user])
+
+    
     
     if(user.role==='admin'){
         
@@ -82,7 +102,18 @@ const Home = () => {
                         {users && users.map(user => (
                         <UsersDetails user={user} key={user._id} />
                         ))}
+                        <select value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
+                            <option value="">Chọn kỳ học</option>
+                            <option value="2024-01">Kỳ 1 năm 2023-2024</option>
+                            <option value="2024-02">Kỳ 2 năm 2023-2024</option>
+                        </select>
+                        <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+                            <option value="">Chọn khoa</option>
+                            <option value="1">K64</option>
+                            <option value="2">K65</option>
+                        </select>
                         {user.role === 'admin' ? <Link to='/create'><button className="addDRL">Thêm điểm rèn luyện</button></Link> : <div></div> }
+                        {allDRL && <Chart {...allDRL} selectedSemester={selectedSemester} selectedYear={selectedYear}/>}
                     </tbody>
                 </div>
                 </div>
@@ -93,11 +124,11 @@ const Home = () => {
     if(user.role === 'covan'){
         return (
             <div>
-                <h1>Trang Cố vấn lớp K64-CA-CLC{user.userClass}</h1>
+                <h1>Trang Cố vấn lớp {classes[user.userClass - 1]}</h1>
                 <select value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
-                    <option value="">Select Semester</option>
-                    <option value="2024-01">2024 Kỳ 01</option>
-                    <option value="2024-02">2024 Kỳ 02</option>
+                    <option value="">Chọn kỳ học</option>
+                    <option value="2024-01">Kỳ 1 năm 2023-2024</option>
+                    <option value="2024-02">Kỳ 2 năm 2023-2024</option>
                 </select>
                 <tbody>
                         <tr>

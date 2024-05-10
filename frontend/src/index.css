@@ -92,6 +92,10 @@ tr:hover {background-color: #ddd;}
 
 /* FORM */
 
+select{
+  margin-bottom: 20px;
+}
+
 .create{
   position: absolute;
   text-align: left;

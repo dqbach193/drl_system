@@ -4,6 +4,9 @@ const UsersDetails = ({user}) => {
     const handleDelete = async () =>{
         alert('Delete : ' + user.email)
     }
+    if(user.role === 'user'){
+        return;
+    }
     return ( 
         <tr>
             <td>{user.email}</td>

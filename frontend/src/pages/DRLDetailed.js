@@ -140,22 +140,22 @@ const DRLDetailed = () => {
                     </tr>
                     <tr>
                         <td>- Không thực hiện theo Giấy triệu tập/Yêu cầu của Nhà trường (trừ 5đ/lần x …..lần)</td>
-                        <td>- {drl.d22 ? drl.d22 : 0}</td>
-                        <button>?</button>
-                    </tr>
-                    <tr>
-                        <td>- Trả quá hạn giấy tờ/hồ sơ đã được phép mượn (trừ 5đ/lần x …..lần)</td>
                         <td>- {drl.d23 ? drl.d23 : 0}</td>
                         <button>?</button>
                     </tr>
                     <tr>
-                        <td>- Không tham gia Bảo hiểm Y tế </td>
+                        <td>- Trả quá hạn giấy tờ/hồ sơ đã được phép mượn (trừ 5đ/lần x …..lần)</td>
                         <td>- {drl.d24 ? drl.d24 : 0}</td>
                         <button>?</button>
                     </tr>
                     <tr>
-                        <td>- Vi phạm quy định nơi cư trú (trừ 10đ/lần x …..lần)</td>
+                        <td>- Không tham gia Bảo hiểm Y tế </td>
                         <td>- {drl.d25 ? drl.d25 : 0}</td>
+                        <button>?</button>
+                    </tr>
+                    <tr>
+                        <td>- Vi phạm quy định nơi cư trú (trừ 10đ/lần x …..lần)</td>
+                        <td>- {drl.d26 ? drl.d26 : 0}</td>
                         <button>?</button>
                     </tr>
                     <tr>

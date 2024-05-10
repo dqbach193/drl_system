@@ -3,13 +3,11 @@ const mongoose = require('mongoose')
 const User = require('../models/userModel')
 
 
-//Xem tat ca DRL
-// const getDRL = async (req, res) => {
-//     const user_id = req.user._id
-//     const drl = await DiemRenLuyen.find({user_id}).sort({createdAt: -1});
-
-//     return res.status(200).json(drl);
-// }
+// Xem tat ca drl
+const getDRLAll = async (req, res) => {
+    const drl = await DiemRenLuyen.find().sort({createdAt: -1});
+    return res.status(200).json(drl);
+}
 const getDRL = async (req, res) => {
     const user_id = req.user._id;
     const user = await User.find({_id:user_id});
@@ -26,6 +24,20 @@ const getDRLbyClass = async (req, res) =>{
     const drl = await DiemRenLuyen.find({userClass:userClass}).sort({createdAt: -1})
 
     return res.status(200).json(drl);
+}
+
+const getDRLbyYear = async (req, res) =>{
+    
+    console.log(req.body)
+    console.log(req.body.class)
+    const yearSelect = req.body.class
+    if(yearSelect==1){
+        const drl = await DiemRenLuyen.find({userClass:{ $in: [1, 2] }}).sort({createdAt: -1})
+        return res.status(200).json(drl);
+    }else if(yearSelect==2){
+        const drl = await DiemRenLuyen.find({userClass:{ $in: [3, 4] }}).sort({createdAt: -1})
+        return res.status(200).json(drl);
+    }
 }
 
 //Xem DRL cu the
@@ -93,5 +105,7 @@ module.exports = {
     createDRL,
     deleteDRL,
     updateDRL,
-    getDRLbyClass
+    getDRLbyClass,
+    getDRLbyYear,
+    getDRLAll
 }
