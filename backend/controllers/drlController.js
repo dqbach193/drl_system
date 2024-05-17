@@ -17,6 +17,7 @@ const getDRL = async (req, res) => {
     return res.status(200).json(drl);
 }
 
+//Get DRL by class
 const getDRLbyClass = async (req, res) =>{
     const user_id = req.user._id;
     const user = await User.find({_id:user_id});

@@ -19,7 +19,7 @@ const DRLForm = () => {
             setError('You must be logged in')
             return
         }
-        const diemRenLuyen = {mssv, hoTen, drl, userClass}
+        const diemRenLuyen = {mssv, hoTen, drl, userClass, semester}
 
         const response = await fetch('/drl', {
             method: 'POST',
@@ -47,7 +47,7 @@ const DRLForm = () => {
 
     return ( 
         <form className="create" onSubmit={handleSubmit}>
-            <h3>Thêm Điểm rèn luyện</h3>
+            <h3>Thêm Điểm rèn luyện <button>Thêm</button></h3>
 
             <label>Mã số sv:</label>
             <input 

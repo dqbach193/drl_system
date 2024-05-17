@@ -4,15 +4,58 @@ const Chart = (allDRL, {selectedSemester, selectedYear}) => {
     
     const semester = allDRL.selectedSemester;
     const year = allDRL.selectedYear
+    const major = allDRL.selectedMajor
+    const selectedDepartment = allDRL.selectedDepartment
     console.log(semester)
-    console.log(year)
+    console.log('Selected year: ' + year)
+    console.log('Selected major: ' + major)
+    console.log('Selected department: ' + selectedDepartment)
+    const department ={
+        1: ["12"],
+        2: ['1', '8', '16', '14', '15'],
+        3: ['2', '9', '17'],
+        4: ['4', '6', '11'],
+        5: ['3', '13'],
+        6: ['7'],
+        7: ['10'],
+        8: ['5']
+    }
+
+    console.log('Available majors: ' + department[selectedDepartment])
+
+    function getFirstTwoDigits(number) {
+        const numStr = number.toString(); // Convert the number to a string
+        return numStr.substring(0, 2); // Get the first two characters
+    }
+    function getThirdAndFourthDigits(number) {
+        const numStr = number.toString(); // Convert the number to a string
+        return numStr.substring(2, 4); // Get the third and fourth characters
+    }
+
     let filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester);
-    if(year!== ''){
-        if(year == 1){
-            filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester && (drl.userClass == 1 || drl.userClass == 2));
+    if(year!=='')
+    {
+        if(year!== undefined){
+            // if(year == 1){
+            //     filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester && (drl.userClass == 1 || drl.userClass == 2));
+            // }
+            // if(year == 2){
+            //     filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester && (drl.userClass == 3 || drl.userClass == 4));
+            // }
+            filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester && (getFirstTwoDigits(drl.userClass) == year));
         }
-        if(year == 2){
-            filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester && (drl.userClass == 3 || drl.userClass == 4));
+    }
+    
+    if(major!=='' && selectedDepartment ===''){
+        if(major!==undefined && year!== undefined){
+            filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester && (getFirstTwoDigits(drl.userClass) == year) && (getThirdAndFourthDigits(drl.userClass) == major));
+        }
+    }
+
+    if(selectedDepartment!==''){
+        if(selectedDepartment!== undefined && year!== undefined){
+            const theDepartment = department[selectedDepartment];
+            filteredDRL = Object.values(allDRL).filter(drl => drl.semester === semester && (getFirstTwoDigits(drl.userClass) == year) && (theDepartment.includes(getThirdAndFourthDigits(drl.userClass))))
         }
     }
     console.log(filteredDRL)
